@@ -1,141 +1,214 @@
-## SintonIA - Musicalia
+# SintonIA - Musicalia
+
+This repository hosts **Musicalia**, an innovative AI-powered digital experience developed by **SintonIA**, a multidisciplinary team from the **University of Porto**.
+
+Musicalia is a real-time, AI-driven avatar designed not just to speak, but to truly connect. She listens, detects emotion, and responds accordingly — both in speech and in animation. Whether on stage or in cultural spaces, Musicalia is more than a tool — she’s a creative partner.
+
+Already tested in live performance, Musicalia demonstrates what’s possible when technology doesn’t replace the artist, but rather performs **with** them.
+
+While others offer static, pre-scripted videos or generic avatar models, we deliver:
+
+- Real-time, adaptive avatars  
+- Emotion & topic recognition  
+- Live synchronization of animation and voice  
+- Culturally grounded design  
+
+The application runs seamlessly on a cloud-based server (currently [Render](https://render.com)), with support for **local execution** — enabling flexibility for development and testing.
 
 ---
 
-This repository hosts **Musicalia**, an innovative AI-powered digital experience developed by **SintonIA**, a multidisciplinary team from the University of Porto. 
-
-**Musicalia** is a real-time, AI-driven avatar designed not just to speak, but to **truly connect**. She listens, detects emotion, and responds accordingly — both in speech and in animation. Whether on stage or in cultural spaces, Musicalia is more than a tool — **she’s a creative partner**.
-
-Already tested in **live performance**, Musicalia demonstrates what’s possible when technology doesn’t replace the artist, but rather **performs with them**.
-
-While others offer **static, pre-scripted videos** or **generic avatar models**, we deliver:
-
-- **Real-time, adaptive avatars**
-- **Emotion & topic recognition**
-- **Live synchronization of animation and voice**
-- **Culturally grounded design**
-
-The application is designed to run seamlessly on a **cloud-based server** (currently [Render](https://render.com)), enabling real-time AI interactions. It also supports **local execution**, offering flexibility for **development and testing**.
+## Features
 
 Musicalia currently supports:
-- Audio input via microphone
-- Emotion & topic analysis via AI
-- Text-To-Speech response generation
-- Real-time animation sync
-- Cloud deployment + local fallback
+
+- Audio input via microphone  
+- Emotion & topic analysis via AI  
+- Text-To-Speech response generation  
+- Real-time animation sync  
+- Cloud deployment + local fallback  
 
 ---
 
-### Technical Overview
+## Running Musicalia
 
-The project comprises a Python backend for AI processing and a Unity frontend for the avatar and user interface.
+You have two main options for running Musicalia:  
+1. **Using the standalone application (Windows & Mac)**  
+2. **Running it locally for development**
 
-#### AI Backend (Python)
+---
 
-The Python backend handles the core AI logic, including speech-to-text transcription, AI response generation, text-to-speech synthesis, and emotion detection.
+### Option 1: Standalone Application (Windows & Mac)
+
+#### Download the Application
+
+- **Windows**: Download `Musicalia_Windows.zip` from [link to download]  
+- **Mac**: Download `Musicalia_Mac.zip` from [link to download]  
+
+#### Extract the Files
+
+- **Windows**: Unzip to e.g., `C:\Musicalia`  
+- **Mac**: Unzip and optionally move `Musicalia.app` to Applications folder  
+
+#### Run the Application
+
+- **Windows**: Double-click `Musicalia.exe`  
+- **Mac**: Double-click `Musicalia.app`
+
+> **Note for macOS**: On first run, approve it under **System Settings > Privacy & Security** → "Open Anyway". Also grant **Microphone Access**.
+
+#### Interact
+
+- Press `Spacebar` to record audio  
+- Press again to stop and send it to Musicalia  
+- Observe real-time animated response  
+
+---
+
+### Option 2: Run Locally for Development
+
+This mode allows deeper customization and contributions.
+
+---
+
+## How it Works (Architecture Overview)
+
+### Python Backend
+
+Handles core AI logic, including:
+
+- Speech-to-text transcription  
+- AI response generation  
+- Text-to-speech synthesis  
+- Emotion detection
 
 **Key Components:**
-* **OpenAI API:** Utilizes **Whisper-1** for robust speech-to-text transcription and **GPT-4o Mini** for generating conversational responses.
-* **Edge TTS:** Powers the text-to-speech conversion, providing natural-sounding Portuguese voice.
-* **Emotion Detection:** Simple keyword-based emotion analysis (happy, sad, neutral) is implemented to guide the avatar's expressions.
-* **Flask:** A lightweight web framework exposing an `/interact_audio` endpoint for communication with the Unity frontend.
-* **Vector Store:** Integrates with OpenAI's Vector Stores to provide context and information from a PDF file (`Info.pdf`) about Fado and Amália Rodrigues, allowing the AI to answer specific questions.
 
-**How it Works (Backend):**
-1.  The Unity application sends recorded user audio (WAV format) to the `/interact_audio` endpoint.
-2.  The backend transcribes the audio using **OpenAI Whisper-1**.
-3.  The transcribed text is fed to the **GPT-4o Mini** assistant (named "Musicalia"), which generates a relevant response.
-4.  The response text undergoes emotion analysis, detecting happy, sad, or neutral tones per sentence.
-5.  The AI-generated text is converted into audio bytes (MP3-like format) using **Edge TTS**.
-6.  The audio bytes and the detected emotion codes are sent back to Unity.
+- **OpenAI API**:  
+  - `Whisper-1` for transcription  
+  - `GPT-4o Mini` for conversation
 
-**Local vs. Render Deployment:**
-The Python backend can be run locally or deployed on a platform like Render. The code includes a check for the `PORT` environment variable, making it adaptable for Render deployment:
+- **Edge TTS**:  
+  Natural-sounding Portuguese voice output
 
-```python
-        # Render (comment when local testing)
-        port = int(os.environ.get("PORT", 5000))
-        app.run(host="0.0.0.0", port=port) ```
+- **Emotion Detection**:  
+  Simple keyword-based (happy, sad, neutral)
 
-For **local execution**, you can uncomment the `app.run` lines corresponding to your operating system (`Windows` or `Mac`) and comment out the `Render` specific lines.
+- **Flask**:  
+  Provides `/interact_audio` endpoint for Unity
 
-```python
-# For Windows (uncomment for local testing)
-# app.run(debug=False, port=5000, threaded=True)
+- **Vector Store**:  
+  Embeds and queries content from `Info.pdf` (about Fado & Amália Rodrigues)
 
-# For Mac (uncomment for local testing)
-# app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)```
+#### Backend Flow
 
+1. Unity sends recorded audio (WAV) to `/interact_audio`
+2. `Whisper-1` transcribes it
+3. `GPT-4o Mini` generates the reply
+4. Text is analyzed for emotional tone
+5. `Edge TTS` generates speech
+6. Audio + emotion codes are returned to Unity
+
+---
+
+### Unity Frontend
+
+Handles:
+
+- Audio recording and transmission  
+- Playing AI-generated speech  
+- Emotion-based real-time animation
+
+#### Key Unity Components
+
+- **`AvatarAIAudioCommunicator.cs`**  
+  Sends/receives audio and emotion to/from Python backend
+
+- **`AvatarAnimationController.cs`**  
+  Maps emotion codes to avatar animations
+
+---
+
+## Setting Up the Python Backend
+
+```bash
+# Clone the repository
+git clone [repository_url]
+
+# Navigate to backend folder
+cd Musicalia/Backend
+
+# Install requirements
+pip install -r requirements.txt
 ```
 
-#### Unity Frontend
+- Add your OpenAI API key to a `.env` file:
 
-The Unity project provides the visual avatar, handles audio input, and communicates with the Python backend.
+```bash
+# In the same folder as avatar_ai_server.py
+echo 'OPENAI_API_KEY="your_openai_api_key_here"' > .env
+```
 
-**Key Scripts:**
-You'll find the C# scripts in the `Assets/Scripts` folder within the Unity project.
+- Place `Info.pdf` (knowledge base) in the same directory as `avatar_ai_server.py`
 
-* **`AvatarAnimationController.cs`**:
-    * Manages the avatar's animations based on its talking state and detected emotions.
-    * **Public Variables:**
-        * `AudioSource audioSource`: The audio source component playing the AI's speech.
-        * `Animator avatarAnimator`: The Animator component controlling the avatar's animations.
-        * `isTalkingParameterName`: String name of the boolean parameter in the Animator that controls if the avatar is talking (e.g., "isTalking").
-        * `emotionParameterName`: String name of the integer parameter for emotion (e.g., "Emotion", with values 0=Neutro, 1=Feliz, 2=Triste).
-        * `talkVariantParameterName`: String name of the integer parameter for talk variants (e.g., "talkVariant").
-        * `minTalkVariantCycleTime`, `maxTalkVariantCycleTime`: Control how often the talk animation variants change.
-        * `maxEmotionDuration`: How long a detected emotion (Happy/Sad) will persist before returning to Neutral.
-    * **Functionality:** Subscribes to events from `AvatarAIAudioCommunicator` to update the avatar's animation parameters. It intelligently cycles through talk variants and resets emotions to neutral after a set duration.
+- Edit `avatar_ai_server.py` to run locally:
 
-* **`AvatarAIAudioCommunicator.cs`**:
-    * Handles recording user audio, sending it to the Python API, receiving and playing the AI's audio response, and processing emotion data.
-    * **Public Variables:**
-        * `pythonApiUrl`: The URL of your Python Flask API endpoint. **You will need to set this directly in the Unity Inspector for the `AvatarAIAudioCommunicator` script.**
-          * For Render deployment: https://musicalia-rtkk.onrender.com/interact_audio
-          * For local Windows execution: http://localhost:5000/interact_audio
-          * For local Mac execution: You'll need to get your local IP address using `ipconfig getifaddr en0` in your terminal and then set this URL to http://[your_mac_ip_address]:5000/interact_audio.
-        * `audioSource`: The AudioSource component to play received audio.
-        * `responseTextUI`: A `TMP_Text` component to display messages or status.
-        * `maxEffectiveRecordingDuration`: The maximum duration for user audio recording.
-        * `fallbackAudioClip`: An AudioClip to play if there's an error communicating with the server.
-        * `thinkingAudioClips`: A list of AudioClips to play while waiting for the AI response.
-    * **Functionality:**
-        * **Recording:** Starts and stops microphone recording when the **Spacebar** is pressed.
-        * **API Communication:** Converts recorded audio to WAV format and sends it as a `UnityWebRequest` POST request to the specified Python API URL.
-        * **Response Handling:** Receives the AI's audio response and emotion codes (from the `X-Musicalia-Emotion-Codes` HTTP header). It then plays the audio and triggers the `OnEmotionDetected` and `OnTalkingStateChanged` events.
-        * **Audio Playback:** Plays the received AI audio or a fallback/thinking audio if necessary.
+```python
+# Uncomment the appropriate lines:
+
+# For Windows:
+# app.run(debug=False, port=5000, threaded=True)
+
+# For macOS:
+# app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
+```
+
+- Run the server:
+
+```bash
+python avatar_ai_server.py
+```
 
 ---
 
-### Unity Setup and Running
+## Setting Up the Unity Frontend
 
-1.  **Install Unity:** If you don't have Unity installed, download the Unity Hub from the [Unity website](https://unity.com/download) and install a recent stable version of the editor (e.g., Unity 2022.3 LTS or newer).
-2.  **Open the Project:**
-    * Launch Unity Hub.
-    * Click "Add" and navigate to the root directory of your cloned Unity project.
-    * Select the project folder and click "Add Project".
-    * Once added, click on the project name in Unity Hub to open it in the Unity Editor.
-3.  **Inspect Scripts:**
-    * In the **Project** window (usually at the bottom), navigate to `Assets/Scripts`.
-    * Double-click on `AvatarAIAudioCommunicator.cs` to open it in your code editor (e.g., Visual Studio, VS Code)..
-4.  **Configure Components:**
-    * In your Unity scene, select the GameObject that has the `AvatarAIAudioCommunicator` script attached (likely your avatar or a central manager object).
-    * In your Unity scene, select the GameObject that has the AvatarAIAudioCommunicator script attached (likely your avatar or a central manager object).
-    * You'll need to manually set the pythonApiUrl field in the Unity Inspector based on your deployment:
-      * For **Render deployment**: https://musicalia-rtkk.onrender.com/interact_audio
-      * For local **Windows** execution: http://localhost:5000/interact_audio
-      * For local **Mac** execution: You'll need to get your local IP address using ipconfig getifaddr en0 in your terminal and then set this URL to http://[your_mac_ip_address]:5000/interact_audio.
-    * Select the GameObject that has the AvatarAnimationController script attached.
-    * Drag the appropriate Animator component to its respective field in the Inspector.
-5.  **Run the Scene:**
-    * With the Unity Editor open, press the **Play** button (▶) at the top center of the editor.
-    * Press the **Spacebar** to start recording your voice. Press it again to stop recording.
-    * Observe the avatar's response and animations.
+1. **Install Unity Hub** + latest **Unity 2022.3 LTS or newer**
+2. **Open Project** via Unity Hub
+3. **Inspect & Configure Scripts**
+
+### AvatarAIAudioCommunicator.cs
+
+- Located in: `Assets/Scripts`  
+- In Unity Inspector, set:
+
+```plaintext
+pythonApiUrl:
+- For Render:      https://musicalia-rtkk.onrender.com/interact_audio
+- For Windows:     http://localhost:5000/interact_audio
+- For macOS:       http://<your_ip>:5000/interact_audio
+```
+
+To get local IP on macOS:
+
+```bash
+ipconfig getifaddr en0
+```
+
+---
+
+## Run in Unity
+
+1. Press **Play** (`▶`) in Unity Editor  
+2. Press **Spacebar** to record  
+3. Press again to send  
+4. Watch and listen to Musicalia’s reply and animation
 
 ---
 
-### Conclusion
+## 🎤 Conclusion
 
-
+Musicalia is a unique fusion of **tradition and technology**, bringing the legacy of **Amália Rodrigues** into the digital age. With real-time AI interactivity, emotion-aware responses, and dynamic animation, it redefines how we experience **Fado** and cultural performance.
 
 ---
+
+**Humans Lead. Technology Follows.**
