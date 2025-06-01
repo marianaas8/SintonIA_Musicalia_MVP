@@ -53,8 +53,9 @@ The Python backend handles the core AI logic, including speech-to-text transcrip
 The Python backend can be run locally or deployed on a platform like Render. The code includes a check for the `PORT` environment variable, making it adaptable for Render deployment:
 
 ```python
-        port = int(os.environ.get("PORT", 5000)) #render
-        app.run(host="0.0.0.0", port=port)```
+        # Render (comment when local testing)
+        port = int(os.environ.get("PORT", 5000))
+        app.run(host="0.0.0.0", port=port) ```
 
 For **local execution**, you can uncomment the `app.run` lines corresponding to your operating system (`Windows` or `Mac`) and comment out the `Render` specific lines.
 
@@ -65,14 +66,6 @@ For **local execution**, you can uncomment the `app.run` lines corresponding to 
 # For Mac (uncomment for local testing)
 # app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)```
 
-For **local execution**, you can uncomment the `app.run` lines corresponding to your operating system (`Windows` or `Mac`) and comment out the `Render` specific lines.
-
-```python
-# For Windows (uncomment for local testing)
-# app.run(debug=False, port=5000, threaded=True)
-
-# For Mac (uncomment for local testing)
-# app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
 ```
 
 #### Unity Frontend
@@ -80,7 +73,7 @@ For **local execution**, you can uncomment the `app.run` lines corresponding to 
 The Unity project provides the visual avatar, handles audio input, and communicates with the Python backend.
 
 **Key Scripts:**
-You'll find the C# scripts in the `Assets/Scripts` folder within your Unity project.
+You'll find the C# scripts in the `Assets/Scripts` folder within the Unity project.
 
 * **`AvatarAnimationController.cs`**:
     * Manages the avatar's animations based on its talking state and detected emotions.
@@ -97,7 +90,10 @@ You'll find the C# scripts in the `Assets/Scripts` folder within your Unity proj
 * **`AvatarAIAudioCommunicator.cs`**:
     * Handles recording user audio, sending it to the Python API, receiving and playing the AI's audio response, and processing emotion data.
     * **Public Variables:**
-        * `pythonApiUrl`: The URL of your Python Flask API endpoint (e.g., `https://musicalia-rtkk.onrender.com/interact_audio` for Render, or `http://127.0.0.1:5000/interact_audio` for local).
+        * `pythonApiUrl`: The URL of your Python Flask API endpoint. **You will need to set this directly in the Unity Inspector for the `AvatarAIAudioCommunicator` script.**
+          * For Render deployment: https://musicalia-rtkk.onrender.com/interact_audio
+          * For local Windows execution: http://localhost:5000/interact_audio
+          * For local Mac execution: You'll need to get your local IP address using `ipconfig getifaddr en0` in your terminal and then set this URL to http://[your_mac_ip_address]:5000/interact_audio.
         * `audioSource`: The AudioSource component to play received audio.
         * `responseTextUI`: A `TMP_Text` component to display messages or status.
         * `maxEffectiveRecordingDuration`: The maximum duration for user audio recording.
@@ -121,25 +117,25 @@ You'll find the C# scripts in the `Assets/Scripts` folder within your Unity proj
     * Once added, click on the project name in Unity Hub to open it in the Unity Editor.
 3.  **Inspect Scripts:**
     * In the **Project** window (usually at the bottom), navigate to `Assets/Scripts`.
-    * Double-click on `AvatarAnimationController.cs` or `AvatarAIAudioCommunicator.cs` to open them in your code editor (e.g., Visual Studio, VS Code).
+    * Double-click on `AvatarAIAudioCommunicator.cs` to open it in your code editor (e.g., Visual Studio, VS Code)..
 4.  **Configure Components:**
     * In your Unity scene, select the GameObject that has the `AvatarAIAudioCommunicator` script attached (likely your avatar or a central manager object).
-    * In the **Inspector** window, drag your `AudioSource` component to the `Audio Source` field.
-    * Ensure the `pythonApiUrl` is correctly set.
-        * For **Render deployment**, use the URL provided by Render (e.g., `https://musicalia-rtkk.onrender.com/interact_audio`).
-        * For **local backend execution**, set it to `http://127.0.0.1:5000/interact_audio` (or whatever port your Flask app is running on).
-    * Select the GameObject that has the `AvatarAnimationController` script attached.
-    * Drag the appropriate `AudioSource` and `Animator` components to their respective fields in the Inspector.
-    * Ensure the `isTalkingParameterName`, `emotionParameterName`, and `talkVariantParameterName` match the parameters defined in your avatar's Animator Controller.
+    * In your Unity scene, select the GameObject that has the AvatarAIAudioCommunicator script attached (likely your avatar or a central manager object).
+    * You'll need to manually set the pythonApiUrl field in the Unity Inspector based on your deployment:
+      * For **Render deployment**: https://musicalia-rtkk.onrender.com/interact_audio
+      * For local **Windows** execution: http://localhost:5000/interact_audio
+      * For local **Mac** execution: You'll need to get your local IP address using ipconfig getifaddr en0 in your terminal and then set this URL to http://[your_mac_ip_address]:5000/interact_audio.
+    * Select the GameObject that has the AvatarAnimationController script attached.
+    * Drag the appropriate Animator component to its respective field in the Inspector.
 5.  **Run the Scene:**
     * With the Unity Editor open, press the **Play** button (▶) at the top center of the editor.
-    * Press the **Spacebar** to start recording your voice. Press it again to stop recording and send the audio to the AI backend.
+    * Press the **Spacebar** to start recording your voice. Press it again to stop recording.
     * Observe the avatar's response and animations.
 
 ---
 
 ### Conclusion
 
-Saudade à Viola is an innovative fusion of tradition and technology, redefining how audiences experience Fado. By bringing Amália Rodrigues’ essence into the digital age, we aim to celebrate her legacy while expanding the role of AI in live cultural performances.
+
 
 ---
