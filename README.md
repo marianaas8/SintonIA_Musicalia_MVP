@@ -15,6 +15,13 @@ While others offer static, pre-scripted videos or generic avatar models, we deli
 
 The application runs seamlessly on a cloud-based server (currently [Render](https://render.com)), with support for **local execution** — enabling flexibility for development and testing.
 
+<video width="auto" height="auto" controls autoplay loop muted playsinline>
+  <source src="" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
+
 ---
 
 ## Features
@@ -216,3 +223,6 @@ Musicalia is a unique fusion of **tradition and technology**, bringing the legac
 ---
 
 **Humans Lead. Technology Follows.**
+
+![](![Sintonia Logo](https://github.com/user-attachments/assets/a4217973-9cc3-4948-bcd6-93488da24b23)
+ "Ocean Sunset View")
