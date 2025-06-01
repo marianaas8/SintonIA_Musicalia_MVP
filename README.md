@@ -2,28 +2,29 @@
 
 ---
 
-This repository hosts the **Saudade à Viola** project, an innovative AI-powered digital experience developed by **SintonIA**, a multidisciplinary team from the University of Porto. Our goal is to merge AI technology with the rich cultural heritage of Fado, creating an immersive experience that brings the voice and presence of Amália Rodrigues to modern audiences through an interactive avatar.
+This repository hosts **Musicalia**, an innovative AI-powered digital experience developed by **SintonIA**, a multidisciplinary team from the University of Porto. 
 
-The application is designed to run seamlessly on a cloud-based server (currently **Render**), enabling real-time AI interactions. However, it also supports **local execution**, offering flexibility for development and testing.
+**Musicalia** is a real-time, AI-driven avatar designed not just to speak, but to **truly connect**. She listens, detects emotion, and responds accordingly — both in speech and in animation. Whether on stage or in cultural spaces, Musicalia is more than a tool — **she’s a creative partner**.
 
-### Project Overview
+Already tested in **live performance**, Musicalia demonstrates what’s possible when technology doesn’t replace the artist, but rather **performs with them**.
 
-Saudade à Viola enhances live Fado performances through an interactive, stylized avatar inspired by Amália Rodrigues. This avatar engages with the audience by delivering AI-generated storytelling between musical pieces, deepening the cultural and emotional connection to Fado.
+While others offer **static, pre-scripted videos** or **generic avatar models**, we deliver:
 
-**Objectives:**
-* Preserve and modernize Fado through innovative AI technology.
-* Enhance audience immersion in cultural performances.
-* Develop an AI-driven avatar capable of engaging in real-time storytelling.
-* Expand the role of AI in live artistic experiences.
+- **Real-time, adaptive avatars**
+- **Emotion & topic recognition**
+- **Live synchronization of animation and voice**
+- **Culturally grounded design**
 
-**Minimum Viable Product (MVP):**
-The MVP focuses on a functional AI-generated avatar capable of narrating Fado’s history and Amália Rodrigues’ legacy in a live performance setting. The avatar is visually stylized, avoiding photorealism, and displayed on a screen or projection. It generates speech in real-time, ensuring a seamless and immersive experience.
+The application is designed to run seamlessly on a **cloud-based server** (currently [Render](https://render.com)), enabling real-time AI interactions. It also supports **local execution**, offering flexibility for **development and testing**.
 
-**Key Features:**
-* **AI-Driven Storytelling:** The avatar delivers real-time, context-aware narration during performances.
-* **Stylized Visuals:** Inspired by Portuguese tile colors, designed to complement the emotional depth of Fado.
-* **Seamless Integration:** Optimized for live stage performances, with clear visibility and synchronized audio output.
-* **Future Scalability:** Potential multilingual support, audience interaction, and broader use in concerts and museums.
+Musicalia currently supports:
+- Audio input via microphone
+- Emotion & topic analysis via AI
+- Text-To-Speech response generation
+- Real-time animation sync
+- Cloud deployment + local fallback
+
+---
 
 ### Technical Overview
 
