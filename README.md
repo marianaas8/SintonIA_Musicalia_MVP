@@ -1,4 +1,4 @@
-## Saudade à Viola – Bringing Amália Rodrigues to Life with AI
+## SintonIA - Musicalia
 
 ---
 
