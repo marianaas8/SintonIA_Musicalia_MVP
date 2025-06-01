@@ -168,6 +168,8 @@ echo 'OPENAI_API_KEY="your_openai_api_key_here"' > .env
 python avatar_ai_server.py
 ```
 
+- The terminal will display output similar to `Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)`, indicating the server is active. Keep this terminal window open. You'll also see the AI's responses and detected emotions printed here during interaction.
+
 ---
 
 ## Setting Up the Unity Frontend
