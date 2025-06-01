@@ -218,5 +218,7 @@ Musicalia is a unique fusion of **tradition and technology**, bringing the legac
 ---
 
 **Humans Lead. Technology Follows.**
+
+
 ![Sintonia Logo](https://github.com/user-attachments/assets/387fb522-208e-48aa-a530-2248ce354432)
 
