@@ -1,1 +1,144 @@
-# SintonIA---Musicalia-MVP-
+## Saudade à Viola – Bringing Amália Rodrigues to Life with AI
+
+---
+
+This repository hosts the **Saudade à Viola** project, an innovative AI-powered digital experience developed by **SintonIA**, a multidisciplinary team from the University of Porto. Our goal is to merge AI technology with the rich cultural heritage of Fado, creating an immersive experience that brings the voice and presence of Amália Rodrigues to modern audiences through an interactive avatar.
+
+The application is designed to run seamlessly on a cloud-based server (currently **Render**), enabling real-time AI interactions. However, it also supports **local execution**, offering flexibility for development and testing.
+
+### Project Overview
+
+Saudade à Viola enhances live Fado performances through an interactive, stylized avatar inspired by Amália Rodrigues. This avatar engages with the audience by delivering AI-generated storytelling between musical pieces, deepening the cultural and emotional connection to Fado.
+
+**Objectives:**
+* Preserve and modernize Fado through innovative AI technology.
+* Enhance audience immersion in cultural performances.
+* Develop an AI-driven avatar capable of engaging in real-time storytelling.
+* Expand the role of AI in live artistic experiences.
+
+**Minimum Viable Product (MVP):**
+The MVP focuses on a functional AI-generated avatar capable of narrating Fado’s history and Amália Rodrigues’ legacy in a live performance setting. The avatar is visually stylized, avoiding photorealism, and displayed on a screen or projection. It generates speech in real-time, ensuring a seamless and immersive experience.
+
+**Key Features:**
+* **AI-Driven Storytelling:** The avatar delivers real-time, context-aware narration during performances.
+* **Stylized Visuals:** Inspired by Portuguese tile colors, designed to complement the emotional depth of Fado.
+* **Seamless Integration:** Optimized for live stage performances, with clear visibility and synchronized audio output.
+* **Future Scalability:** Potential multilingual support, audience interaction, and broader use in concerts and museums.
+
+### Technical Overview
+
+The project comprises a Python backend for AI processing and a Unity frontend for the avatar and user interface.
+
+#### AI Backend (Python)
+
+The Python backend handles the core AI logic, including speech-to-text transcription, AI response generation, text-to-speech synthesis, and emotion detection.
+
+**Key Components:**
+* **OpenAI API:** Utilizes **Whisper-1** for robust speech-to-text transcription and **GPT-4o Mini** for generating conversational responses.
+* **Edge TTS:** Powers the text-to-speech conversion, providing natural-sounding Portuguese voice.
+* **Emotion Detection:** Simple keyword-based emotion analysis (happy, sad, neutral) is implemented to guide the avatar's expressions.
+* **Flask:** A lightweight web framework exposing an `/interact_audio` endpoint for communication with the Unity frontend.
+* **Vector Store:** Integrates with OpenAI's Vector Stores to provide context and information from a PDF file (`Info.pdf`) about Fado and Amália Rodrigues, allowing the AI to answer specific questions.
+
+**How it Works (Backend):**
+1.  The Unity application sends recorded user audio (WAV format) to the `/interact_audio` endpoint.
+2.  The backend transcribes the audio using **OpenAI Whisper-1**.
+3.  The transcribed text is fed to the **GPT-4o Mini** assistant (named "Musicalia"), which generates a relevant response.
+4.  The response text undergoes emotion analysis, detecting happy, sad, or neutral tones per sentence.
+5.  The AI-generated text is converted into audio bytes (MP3-like format) using **Edge TTS**.
+6.  The audio bytes and the detected emotion codes are sent back to Unity.
+
+**Local vs. Render Deployment:**
+The Python backend can be run locally or deployed on a platform like Render. The code includes a check for the `PORT` environment variable, making it adaptable for Render deployment:
+
+```python
+        port = int(os.environ.get("PORT", 5000)) #render
+        app.run(host="0.0.0.0", port=port)```
+
+For **local execution**, you can uncomment the `app.run` lines corresponding to your operating system (`Windows` or `Mac`) and comment out the `Render` specific lines.
+
+```python
+# For Windows (uncomment for local testing)
+# app.run(debug=False, port=5000, threaded=True)
+
+# For Mac (uncomment for local testing)
+# app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)```
+
+For **local execution**, you can uncomment the `app.run` lines corresponding to your operating system (`Windows` or `Mac`) and comment out the `Render` specific lines.
+
+```python
+# For Windows (uncomment for local testing)
+# app.run(debug=False, port=5000, threaded=True)
+
+# For Mac (uncomment for local testing)
+# app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
+```
+
+#### Unity Frontend
+
+The Unity project provides the visual avatar, handles audio input, and communicates with the Python backend.
+
+**Key Scripts:**
+You'll find the C# scripts in the `Assets/Scripts` folder within your Unity project.
+
+* **`AvatarAnimationController.cs`**:
+    * Manages the avatar's animations based on its talking state and detected emotions.
+    * **Public Variables:**
+        * `AudioSource audioSource`: The audio source component playing the AI's speech.
+        * `Animator avatarAnimator`: The Animator component controlling the avatar's animations.
+        * `isTalkingParameterName`: String name of the boolean parameter in the Animator that controls if the avatar is talking (e.g., "isTalking").
+        * `emotionParameterName`: String name of the integer parameter for emotion (e.g., "Emotion", with values 0=Neutro, 1=Feliz, 2=Triste).
+        * `talkVariantParameterName`: String name of the integer parameter for talk variants (e.g., "talkVariant").
+        * `minTalkVariantCycleTime`, `maxTalkVariantCycleTime`: Control how often the talk animation variants change.
+        * `maxEmotionDuration`: How long a detected emotion (Happy/Sad) will persist before returning to Neutral.
+    * **Functionality:** Subscribes to events from `AvatarAIAudioCommunicator` to update the avatar's animation parameters. It intelligently cycles through talk variants and resets emotions to neutral after a set duration.
+
+* **`AvatarAIAudioCommunicator.cs`**:
+    * Handles recording user audio, sending it to the Python API, receiving and playing the AI's audio response, and processing emotion data.
+    * **Public Variables:**
+        * `pythonApiUrl`: The URL of your Python Flask API endpoint (e.g., `https://musicalia-rtkk.onrender.com/interact_audio` for Render, or `http://127.0.0.1:5000/interact_audio` for local).
+        * `audioSource`: The AudioSource component to play received audio.
+        * `responseTextUI`: A `TMP_Text` component to display messages or status.
+        * `maxEffectiveRecordingDuration`: The maximum duration for user audio recording.
+        * `fallbackAudioClip`: An AudioClip to play if there's an error communicating with the server.
+        * `thinkingAudioClips`: A list of AudioClips to play while waiting for the AI response.
+    * **Functionality:**
+        * **Recording:** Starts and stops microphone recording when the **Spacebar** is pressed.
+        * **API Communication:** Converts recorded audio to WAV format and sends it as a `UnityWebRequest` POST request to the specified Python API URL.
+        * **Response Handling:** Receives the AI's audio response and emotion codes (from the `X-Musicalia-Emotion-Codes` HTTP header). It then plays the audio and triggers the `OnEmotionDetected` and `OnTalkingStateChanged` events.
+        * **Audio Playback:** Plays the received AI audio or a fallback/thinking audio if necessary.
+
+---
+
+### Unity Setup and Running
+
+1.  **Install Unity:** If you don't have Unity installed, download the Unity Hub from the [Unity website](https://unity.com/download) and install a recent stable version of the editor (e.g., Unity 2022.3 LTS or newer).
+2.  **Open the Project:**
+    * Launch Unity Hub.
+    * Click "Add" and navigate to the root directory of your cloned Unity project.
+    * Select the project folder and click "Add Project".
+    * Once added, click on the project name in Unity Hub to open it in the Unity Editor.
+3.  **Inspect Scripts:**
+    * In the **Project** window (usually at the bottom), navigate to `Assets/Scripts`.
+    * Double-click on `AvatarAnimationController.cs` or `AvatarAIAudioCommunicator.cs` to open them in your code editor (e.g., Visual Studio, VS Code).
+4.  **Configure Components:**
+    * In your Unity scene, select the GameObject that has the `AvatarAIAudioCommunicator` script attached (likely your avatar or a central manager object).
+    * In the **Inspector** window, drag your `AudioSource` component to the `Audio Source` field.
+    * Ensure the `pythonApiUrl` is correctly set.
+        * For **Render deployment**, use the URL provided by Render (e.g., `https://musicalia-rtkk.onrender.com/interact_audio`).
+        * For **local backend execution**, set it to `http://127.0.0.1:5000/interact_audio` (or whatever port your Flask app is running on).
+    * Select the GameObject that has the `AvatarAnimationController` script attached.
+    * Drag the appropriate `AudioSource` and `Animator` components to their respective fields in the Inspector.
+    * Ensure the `isTalkingParameterName`, `emotionParameterName`, and `talkVariantParameterName` match the parameters defined in your avatar's Animator Controller.
+5.  **Run the Scene:**
+    * With the Unity Editor open, press the **Play** button (▶) at the top center of the editor.
+    * Press the **Spacebar** to start recording your voice. Press it again to stop recording and send the audio to the AI backend.
+    * Observe the avatar's response and animations.
+
+---
+
+### Conclusion
+
+Saudade à Viola is an innovative fusion of tradition and technology, redefining how audiences experience Fado. By bringing Amália Rodrigues’ essence into the digital age, we aim to celebrate her legacy while expanding the role of AI in live cultural performances.
+
+---
