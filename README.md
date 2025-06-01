@@ -144,11 +144,13 @@ pip install -r requirements.txt
 - Add your OpenAI API key to a `.env` file:
 
 ```bash
-# In the same folder as avatar_ai_server.py
-echo 'OPENAI_API_KEY="your_openai_api_key_here"' > .env
-```
+# For macOS / Linux
+export OPENAI_API_KEY="your_api_key_here"
 
-- Place `Info.pdf` (knowledge base) in the same directory as `avatar_ai_server.py`
+# For Windows
+setx OPENAI_API_KEY "your_api_key_here"
+
+```
 
 - Edit `avatar_ai_server.py` to run locally:
 
@@ -207,7 +209,7 @@ ipconfig getifaddr en0
 
 ---
 
-## 🎤 Conclusion
+## Conclusion
 
 Musicalia is a unique fusion of **tradition and technology**, bringing the legacy of **Amália Rodrigues** into the digital age. With real-time AI interactivity, emotion-aware responses, and dynamic animation, it redefines how we experience **Fado** and cultural performance.
 
