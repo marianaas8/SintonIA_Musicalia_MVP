@@ -45,8 +45,8 @@ You have two main options for running Musicalia:
 
 #### Download the Application
 
-- **Windows**: Download `Musicalia_Windows.zip` from [link to download]  
-- **Mac**: Download `Musicalia_Mac.zip` from [link to download]  
+- **Windows**: Download `Musicalia_Windows.zip`  
+- **Mac**: Download `Musicalia_Mac.zip` 
 
 #### Extract the Files
 
@@ -74,6 +74,7 @@ export OPENAI_API_KEY="your_api_key_here"
 
 #### Interact
 
+- Allow a few initial seconds for the app to connect to Render.
 - Press `Spacebar` to record audio  
 - Press again to stop and send it to Musicalia  
 - Observe real-time animated response  
@@ -97,7 +98,7 @@ Handles core AI logic, including:
 - Text-to-speech synthesis  
 - Emotion detection
 
-**Key Components:**
+#### Key Components:
 
 - **OpenAI API**:  
   - `Whisper-1` for transcription  
@@ -110,19 +111,20 @@ Handles core AI logic, including:
   Simple keyword-based (happy, sad, neutral)
 
 - **Flask**:  
-  Provides `/interact_audio` endpoint for Unity
+  Provides `/initialize_ai` and `/interact_audio` endpoints for Unity
 
 - **Vector Store**:  
   Embeds and queries content from `Info.pdf` (about Fado & Amália Rodrigues)
 
 #### Backend Flow
 
-1. Unity sends recorded audio (WAV) to `/interact_audio`
-2. `Whisper-1` transcribes it
-3. `GPT-4o Mini` generates the reply
-4. Text is analyzed for emotional tone
-5. `Edge TTS` generates speech
-6. Audio + emotion codes are returned to Unity
+1. Unity sends the OpenAI API key to the `/initialize_ai` endpoint to set up AI components.
+2. Unity sends recorded audio (WAV) to `/interact_audio`
+3. `Whisper-1` transcribes it
+4. `GPT-4o Mini` generates the reply
+5. Text is analyzed for emotional tone
+6. `Edge TTS` generates speech
+7. Audio + emotion codes are returned to Unity
 
 ---
 
@@ -130,17 +132,43 @@ Handles core AI logic, including:
 
 Handles:
 
-- Audio recording and transmission  
-- Playing AI-generated speech  
-- Emotion-based real-time animation
+-   Audio recording and transmission
+-   Playing AI-generated speech
+-   Emotion-based real-time animation
+-   Automated scene loading
+-   Application exit functionality
 
 #### Key Unity Components
 
-- **`AvatarAIAudioCommunicator.cs`**  
-  Sends/receives audio and emotion to/from Python backend
+-   **`AvatarAIAudioCommunicator.cs`**
+    Sends/receives audio and emotion to/from Python backend, also responsible for initializing the AI system on the server.
 
-- **`AvatarAnimationController.cs`**  
-  Maps emotion codes to avatar animations
+-   **`AvatarAnimationController.cs`**
+    Maps emotion codes to avatar animations.
+
+-   **`LoadSceneAfterDelay.cs`**
+    Loads a new Unity scene after a specified delay.
+
+-   **`QuitOnEscape.cs`**
+    Allows quitting the application or stopping Play mode in the Unity Editor by pressing the Escape key.
+
+#### Unity Frontend Flow
+
+### Unity Frontend Flow
+
+1.  `LoadSceneAfterDelay.cs` transitions to the next scene after a set delay.
+2.  `AvatarAIAudioCommunicator.cs` initializes AI by sending the API key to the backend.
+3.  Upon AI readiness, Unity enables spacebar for audio recording.
+4.  `AvatarAIAudioCommunicator.cs` records microphone input.
+5.  Releasing spacebar sends recorded WAV to the backend's `/interact_audio` endpoint.
+6.  "Thinking" audio plays while awaiting AI response.
+7.  Backend returns MP3 audio and emotion codes to `AvatarAIAudioCommunicator.cs`.
+8.  Received audio is played.
+9.  Emotion codes are processed to determine the dominant emotion.
+10. `OnEmotionDetected` event triggers `AvatarAnimationController.cs` for animation.
+11. `OnTalkingStateChanged` event updates avatar's speaking/thinking state.
+12. Communication errors trigger fallback audio.
+13. `QuitOnEscape.cs` allows exiting the application with the Escape key.
 
 ---
 
@@ -178,6 +206,11 @@ setx OPENAI_API_KEY "your_api_key_here"
 
 # For macOS:
 # app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
+
+# Comment the Render lines:
+
+# port = int(os.environ.get("PORT", 5000))
+# app.run(host="0.0.0.0", port=port)
 ```
 
 - Run the server:
