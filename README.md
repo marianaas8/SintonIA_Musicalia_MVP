@@ -51,7 +51,18 @@ You have two main options for running Musicalia:
 #### Extract the Files
 
 - **Windows**: Unzip to e.g., `C:\Musicalia`  
-- **Mac**: Unzip and optionally move `Musicalia.app` to Applications folder  
+- **Mac**: Unzip and optionally move `Musicalia.app` to Applications folder
+
+#### Add your OpenAI API key to a `.env` file
+
+```bash
+# For Windows
+setx OPENAI_API_KEY "your_api_key_here"
+
+# For macOS / Linux
+export OPENAI_API_KEY="your_api_key_here"
+
+```
 
 #### Run the Application
 
