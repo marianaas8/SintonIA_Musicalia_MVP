@@ -85,9 +85,7 @@ export OPENAI_API_KEY="your_api_key_here"
 
 This mode allows deeper customization and contributions.
 
----
-
-## How it Works (Architecture Overview)
+### How it Works (Architecture Overview)
 
 ### Python Backend
 
@@ -126,8 +124,6 @@ Handles core AI logic, including:
 6. `Edge TTS` generates speech
 7. Audio + emotion codes are returned to Unity
 
----
-
 ### Unity Frontend
 
 Handles:
@@ -154,8 +150,6 @@ Handles:
 
 #### Unity Frontend Flow
 
-### Unity Frontend Flow
-
 1.  `LoadSceneAfterDelay.cs` transitions to the next scene after a set delay.
 2.  `AvatarAIAudioCommunicator.cs` initializes AI by sending the API key to the backend.
 3.  Upon AI readiness, Unity enables spacebar for audio recording.
@@ -170,9 +164,7 @@ Handles:
 12. Communication errors trigger fallback audio.
 13. `QuitOnEscape.cs` allows exiting the application with the Escape key.
 
----
-
-## Setting Up the Python Backend
+### Setting Up the Python Backend
 
 ```bash
 # Clone the repository
@@ -221,15 +213,13 @@ python avatar_ai_server.py
 
 - The terminal will display output similar to `Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)`, indicating the server is active. Keep this terminal window open. You'll also see the AI's responses and detected emotions printed here during interaction.
 
----
-
-## Setting Up the Unity Frontend
+### Setting Up the Unity Frontend
 
 1. **Install Unity Hub** + latest **Unity 2022.3 LTS or newer**
 2. **Open Project** via Unity Hub
 3. **Inspect & Configure Scripts**
 
-### AvatarAIAudioCommunicator.cs
+**AvatarAIAudioCommunicator.cs:**
 
 - Located in: `Assets/Scripts`  
 - In Unity Inspector, set:
@@ -249,7 +239,7 @@ ipconfig getifaddr en0
 
 ---
 
-## Run in Unity
+### Run in Unity
 
 1. Press **Play** (`▶`) in Unity Editor  
 2. Press **Spacebar** to record  
