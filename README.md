@@ -21,7 +21,7 @@ The application runs seamlessly on a cloud-based server (currently [Render](http
 
 ---
 
-## Features
+## Features (Use Cases)
 
 Musicalia currently supports:
 
