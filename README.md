@@ -168,10 +168,10 @@ Handles:
 
 ```bash
 # Clone the repository
-git clone [repository_url]
+git clone https://github.com/marianaas8/SintonIA_Musicalia_MVP.git
 
 # Navigate to backend folder
-cd Musicalia/Backend
+cd SintonIA_Musicalia_MVP/Backend
 
 # Install requirements
 pip install -r requirements.txt
