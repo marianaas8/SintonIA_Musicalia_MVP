@@ -43,6 +43,18 @@ You have two main options for running Musicalia:
 
 ### Option 1: Standalone Application (Windows & Mac)
 
+#### Create Your OpenAI API Key
+
+Before running Musicalia, you'll need an **OpenAI API key**. This key allows Musicalia to access OpenAI's powerful AI models for transcription, conversation, and more.
+
+* Go to the [OpenAI API website](https://platform.openai.com/account/api-keys).
+* **Sign up or log in** to your account.
+* **First-time users**: If this is your first time using the OpenAI API, you might need to click **"Start building"** to initialize your account and add an Organization.
+* Give your key a name (e.g., "Musicalia") and click "Generate API key."
+* **Copy the key immediately!** You won't be able to see it again. Store it in a safe place.
+* Once the key is generated, you'll need to **add API credits** to enable billing for API usage. Don't worry, the costs for an application like Musicalia are typically very low, often just a few dollars per month for usual consumption, well within the initial $5 minimum.
+
+
 #### Download the Application
 
 - **Windows**: Download [Musicalia_Windows.zip](https://github.com/marianaas8/SintonIA_Musicalia_MVP/releases/download/v1.0.0/Musicalia_Windows.zip)  
