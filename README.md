@@ -4,7 +4,7 @@ This repository hosts **Musicalia**, an innovative AI-powered digital experience
 
 Musicalia is a real-time, AI-driven avatar designed not just to speak, but to truly connect. She listens, detects emotion, and responds accordingly — both in speech and in animation.
 
-In this MVP, tailored for our client, Gil ferreira, she helped bring the legacy of the fadista Amália Rodrigues into the digital age. Through real-time AI interactivity, emotion-aware responses, and dynamic animation, it supports Gil in redefining how we experience fado and cultural performance. 
+In this MVP, tailored for our client, Gil ferreira, Musicalia helped bring the legacy of the fadista Amália Rodrigues into the digital age. Through real-time AI interactivity, emotion-aware responses, and dynamic animation, it supports Gil in redefining how we experience fado and cultural performance. 
 
 Musicalia demonstrates what’s possible when technology doesn’t replace the artist, but rather performs **with** them.
 
