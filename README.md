@@ -50,24 +50,24 @@ You have two main options for running Musicalia:
 
 #### Extract the Files
 
-- **Windows**: Unzip to e.g., `C:\Musicalia`  
-- **Mac**: Unzip and optionally move `Musicalia.app` to Applications folder
+-   **Windows**: Unzip to e.g., `C:\Musicalia`
+-   **Mac**: Unzip the downloaded `.zip` file. This will create a `Musicalia.app` application file. You can then optionally drag and drop `Musicalia.app` to your Applications folder for easier access, or run it directly from where you unzipped it.
 
 #### Add your OpenAI API key to your Environment
 
 - **Windows**:
-```bash
+```cmd
 setx OPENAI_API_KEY "your_api_key_here"
 ```
 
 - **Mac**: 
-```bash
+```cmd
 export OPENAI_API_KEY="your_api_key_here"
 ```
 
 #### Run the Application
 
-- **Windows**: Double-click `Musicalia.exe`  
+- **Windows**: Double-click `Musicalia Avatar.exe`  
 - **Mac**: Double-click `Musicalia.app`
 
 > **Note for macOS**: On first run, approve it under **System Settings > Privacy & Security** → "Open Anyway". Also grant **Microphone Access**.
@@ -75,9 +75,11 @@ export OPENAI_API_KEY="your_api_key_here"
 #### Interact
 
 - Allow a few initial seconds for the app to connect to Render.
-- Press `Spacebar` to record audio  
-- Press again to stop and send it to Musicalia  
-- Observe real-time animated response  
+- Press `Spacebar` to record audio.
+- Press again to stop and send it to Musicalia.
+- Observe real-time animated response.
+
+> Be aware that there may be a short delay the first time Musicalia generates a response, as the "thinking" audio loads.
 
 ---
 
