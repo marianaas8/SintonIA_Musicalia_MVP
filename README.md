@@ -45,8 +45,8 @@ You have two main options for running Musicalia:
 
 #### Download the Application
 
-- **Windows**: Download `Musicalia_Windows.zip`  
-- **Mac**: Download `Musicalia_Mac.zip` 
+- **Windows**: Download [Musicalia_Windows.zip](https://github.com/marianaas8/SintonIA_Musicalia_MVP/releases/download/v1.0.0/Musicalia_Windows.zip)  
+- **Mac**: Download [Musicalia_Mac.app.zip](https://github.com/marianaas8/SintonIA_Musicalia_MVP/releases/download/v1.0.0/Musicalia_Mac.app.zip) 
 
 #### Extract the Files
 
