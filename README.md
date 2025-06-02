@@ -4,9 +4,9 @@ This repository hosts **Musicalia**, an innovative AI-powered digital experience
 
 Musicalia is a real-time, AI-driven avatar designed not just to speak, but to truly connect. She listens, detects emotion, and responds accordingly — both in speech and in animation.
 
-She embodies the spirit of Amália Rodrigues, the iconic Portuguese Fado singer. Her purpose is to engage the audience during a music concert's intermission, sharing stories, curiosities, and the historical context of Fado in a rich and poetic way. Musicalia is more than a tool — she’s a creative partner.
+In this MVP, tailored for our client, Gil ferreira, she helped bring the legacy of the fadista Amália Rodrigues into the digital age. Through real-time AI interactivity, emotion-aware responses, and dynamic animation, it supports Gil in redefining how we experience fado and cultural performance. 
 
-Already tested in live performance, Musicalia demonstrates what’s possible when technology doesn’t replace the artist, but rather performs **with** them.
+Musicalia demonstrates what’s possible when technology doesn’t replace the artist, but rather performs **with** them.
 
 While others offer static, pre-scripted videos or generic avatar models, we deliver:
 
@@ -260,12 +260,9 @@ ipconfig getifaddr en0
 
 ## Conclusion
 
-Musicalia is a unique fusion of **tradition and technology**, bringing the legacy of **Amália Rodrigues** into the digital age. With real-time AI interactivity, emotion-aware responses, and dynamic animation, it redefines how we experience **Fado** and cultural performance.
+Musicalia stands as a unique fusion of tradition and technology. More than just a tool, she's a true creative partner, embodying our philosophy: **Humans Lead. Technology Follows.**
 
 ---
-
-**Humans Lead. Technology Follows.**
-
 
 ![Sintonia Logo](https://github.com/user-attachments/assets/387fb522-208e-48aa-a530-2248ce354432)
 
