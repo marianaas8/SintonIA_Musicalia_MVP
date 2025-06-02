@@ -87,6 +87,12 @@ export OPENAI_API_KEY="your_api_key_here"
 
 This mode allows deeper customization and contributions.
 
+**First, clone the repository:**
+```bash
+git clone [https://github.com/marianaas8/SintonIA_Musicalia_MVP.git](https://github.com/marianaas8/SintonIA_Musicalia_MVP.git)
+cd SintonIA_Musicalia_MVP
+```
+
 ### How it Works (Architecture Overview)
 
 ### Python Backend
@@ -169,17 +175,14 @@ Handles:
 ### Setting Up the Python Backend
 
 ```bash
-# Clone the repository
-git clone https://github.com/marianaas8/SintonIA_Musicalia_MVP.git
-
-# Navigate to backend folder
-cd SintonIA_Musicalia_MVP/Backend
+# Navigate to the Backend folder
+cd Backend
 
 # Install requirements
 pip install -r requirements.txt
 ```
 
-- Add your OpenAI API key to a `.env` file:
+- Create a .env file in the Backend directory with your OpenAI API key:
 
 ```bash
 # For macOS / Linux
@@ -218,7 +221,7 @@ python avatar_ai_server.py
 ### Setting Up the Unity Frontend
 
 1. **Install Unity Hub** + latest **Unity 2022.3 LTS or newer**
-2. **Open Project** via Unity Hub
+2.  **Open Project** via Unity Hub (select the `Frontend (Unity)` folder within your cloned repository).
 3. **Inspect & Configure Scripts**
 
 **AvatarAIAudioCommunicator.cs:**
@@ -238,8 +241,6 @@ To get local IP on macOS:
 ```bash
 ipconfig getifaddr en0
 ```
-
----
 
 ### Run in Unity
 
