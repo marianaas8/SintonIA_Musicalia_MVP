@@ -2,7 +2,9 @@
 
 This repository hosts **Musicalia**, an innovative AI-powered digital experience developed by **SintonIA**, a multidisciplinary team from the **University of Porto**.
 
-Musicalia is a real-time, AI-driven avatar designed not just to speak, but to truly connect. She listens, detects emotion, and responds accordingly — both in speech and in animation. Whether on stage or in cultural spaces, Musicalia is more than a tool — she’s a creative partner.
+Musicalia is a real-time, AI-driven avatar designed not just to speak, but to truly connect. She listens, detects emotion, and responds accordingly — both in speech and in animation.
+
+She embodies the spirit of Amália Rodrigues, the iconic Portuguese Fado singer. Her purpose is to engage the audience during a music concert's intermission, sharing stories, curiosities, and the historical context of Fado in a rich and poetic way. Musicalia is more than a tool — she’s a creative partner.
 
 Already tested in live performance, Musicalia demonstrates what’s possible when technology doesn’t replace the artist, but rather performs **with** them.
 
@@ -188,10 +190,10 @@ python avatar_ai_server.py
 - In Unity Inspector, set:
 
 ```plaintext
-pythonApiUrl:
-- For Render:      https://musicalia-rtkk.onrender.com/interact_audio
-- For Windows:     http://localhost:5000/interact_audio
-- For macOS:       http://<your_ip>:5000/interact_audio
+pythonServerBaseUrl:
+- For Render:        https://musicalia-rtkk.onrender.com
+- For Windows:       http://localhost:5000
+- For macOS:         http://<your_ip>:5000
 ```
 
 To get local IP on macOS:
