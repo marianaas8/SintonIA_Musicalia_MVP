@@ -16,9 +16,6 @@ import traceback # For printing error tracebacks
 import re # For regular expressions, used in emotion detection
 import json # For serializing the list of emotions
 
-# --- Configurations and Globals ---
-# OpenAI API Key will be received from Unity.
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") # REMOVED - Key will be passed by Unity
 
 # Instances of OpenAI components, initialized after receiving API key.
 client = None
@@ -108,7 +105,6 @@ async def text_to_speech_bytes(text):
         return None
 
 # --- Processes interaction with OpenAI Assistant, generates audio, and analyzes emotion ---
-# Receives transcription, interacts with Assistant, gets text response, analyzes emotion, and generates audio.
 async def process_interaction_and_speak(user_transcription):
     global full_response, client, assistant, thread, ai_initialized_successfully
 
@@ -240,8 +236,6 @@ def interact_audio_endpoint():
 
         if not user_transcription:
             print("Transcription resulted in empty text.")
-            # Still send a 200 but indicate no AI interaction. Unity can handle this.
-            # We can send a silent audio or specific signal if needed, here just a message.
             empty_response = Response(mimetype='audio/mpeg') # Empty audio
             empty_response.headers['X-Musicalia-Emotion-Codes'] = "0" # Neutral for empty
             empty_response.status_code = 200 # OK, but effectively no content
@@ -285,7 +279,6 @@ def interact_audio_endpoint():
 
 # --- Initializes AI Components ---
 # Configures OpenAI Client, Vector Store (for PDF), Assistant, and Thread.
-# NOW ACCEPTS an api_key parameter
 def initialize_ai_components(api_key):
     global client, vector_store, assistant, thread
 
@@ -312,9 +305,7 @@ def initialize_ai_components(api_key):
 
         # Check if file_path exists before attempting to use it
         if not os.path.exists(file_path):
-            print(f"WARNING: File '{file_path}' not found. Vector Store will be created empty or may fail if file is mandatory for creation logic.")
-            # Decide if you want to proceed without the file or return False
-            # For now, we'll proceed and let assistant creation handle it, but it might be better to return False if file is critical
+            print(f"WARNING: File '{file_path}' not found.")
 
         vector_stores_list = client.vector_stores.list() # Use client.beta.vector_stores
         existing_store = next((vs for vs in vector_stores_list.data if vs.name == vector_store_name), None)
@@ -326,8 +317,6 @@ def initialize_ai_components(api_key):
         else:
             print("Creating new Vector Store...")
             vector_store_payload = {"name": vector_store_name}
-            # If you need to upload files during creation, adjust the client.beta.vector_stores.create call
-            # For now, creating an empty one if file not found or handling file upload separately
             vector_store = client.vector_stores.create(**vector_store_payload) # Use client.beta.vector_stores
             print(f"Vector Store created: {vector_store.id}")
 
@@ -421,9 +410,8 @@ def initialize_ai_components(api_key):
 
         # Conversation Thread. ALWAYS creates a new one at each server start
         # to ensure a clean state for each server execution session. (Or upon successful initialization)
-        if thread: # If a thread from a previous (failed?) initialization exists, you might want to clear it or reuse.
+        if thread:
             print(f"Existing thread found: {thread.id}. Creating a new one for a clean session.")
-            # client.beta.threads.delete(thread.id) # Optional: delete old thread
 
         thread = client.beta.threads.create()
         print(f"New Thread created: {thread.id}")
@@ -471,7 +459,7 @@ def clean_text_for_tts(text):
     # Remove other unwanted graphic symbols (optional)
     text = re.sub(r"[•▪️✔️✖️➡️★☆→←↑↓◆■«»“”]", "", text) # Added more common symbols like quotes
 
-    # Remove multiple newlines and replace with a single space (or a single newline if preferred for TTS phrasing)
+    # Remove multiple newlines and replace with a single space
     text = re.sub(r"\n+", " ", text)
 
     # Remove duplicate spaces and normalize
@@ -491,7 +479,10 @@ if __name__ == '__main__':
 
     # For Render (comment for local testing)
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port) # threaded=True can be beneficial for handling multiple requests
+    app.run(host="0.0.0.0", port=port) 
 
-    # For Windows/Mac local testing (example)
-    # app.run(host='0.0.0.0', port=5000, debug=True, threaded=True) # debug=True is helpful for development
+    # For Windows (uncomment for local testing)
+    # app.run(debug=False, port=5000, threaded=True)
+
+    # For Mac (uncomment for local testing)
+    # app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
