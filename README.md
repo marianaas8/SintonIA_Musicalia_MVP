@@ -226,7 +226,14 @@ python avatar_ai_server.py
 
 **AvatarAIAudioCommunicator.cs:**
 
-- Located in: `Assets/Scripts`  
+- Located in: `Assets/Scripts`
+- In the script file, uncomment the appropriate `pythonServerBaseUrl` line for your local setup and ensure only one is active:
+
+        ```csharp
+        public string pythonServerBaseUrl = "[https://musicalia-rtkk.onrender.com](https://musicalia-rtkk.onrender.com)"; // Default to Render
+        // public string pythonServerBaseUrl = "http://localhost:5000"; // Uncomment for local Windows
+        // public string pythonServerBaseUrl = "http://<your_ip>:5000"; // Uncomment for local macOS, replace <your_ip>
+        ```  
 - In Unity Inspector, set:
 
 ```plaintext
