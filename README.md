@@ -90,9 +90,6 @@ export OPENAI_API_KEY="your_api_key_here"
 - Press `Spacebar` to record audio.
 - Press again to stop and send it to Musicalia.
 - Observe real-time animated response.
-
-> Be aware that there may be a short delay the first time Musicalia generates a response, as the "thinking" audio loads.
-
 ---
 
 ### Option 2: Run Locally for Development
