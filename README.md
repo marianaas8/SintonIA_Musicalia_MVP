@@ -98,7 +98,7 @@ This mode allows deeper customization and contributions.
 
 **First, clone the repository:**
 ```bash
-git clone [https://github.com/marianaas8/SintonIA_Musicalia_MVP.git](https://github.com/marianaas8/SintonIA_Musicalia_MVP.git)
+git clone https://github.com/marianaas8/SintonIA_Musicalia_MVP.git
 cd SintonIA_Musicalia_MVP
 ```
 
