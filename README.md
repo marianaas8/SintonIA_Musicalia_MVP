@@ -243,7 +243,7 @@ python avatar_ai_server.py
         // public string pythonServerBaseUrl = "http://localhost:5000"; // Uncomment for local Windows
         // public string pythonServerBaseUrl = "http://<your_ip>:5000"; // Uncomment for local macOS, replace <your_ip>
         ```  
-- In Unity Inspector, set:
+- In `AISystemManager`, on the Unity Inspector, set:
 
 ```plaintext
 pythonServerBaseUrl:
