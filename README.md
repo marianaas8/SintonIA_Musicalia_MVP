@@ -185,7 +185,7 @@ Handles:
 
 ```bash
 # Navigate to the Backend folder
-cd Backend
+cd Backend (Python)
 
 # Install requirements
 pip install -r requirements.txt
